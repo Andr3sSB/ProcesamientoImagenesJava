@@ -1,0 +1,14 @@
+# Compilados
+*.class
+
+# Carpetas de compilación
+bin/
+out/
+target/
+
+# Archivos temporales
+*.log
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
