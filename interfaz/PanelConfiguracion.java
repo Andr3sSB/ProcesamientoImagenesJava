@@ -5,10 +5,9 @@ import javax.swing.JOptionPane;
 
 import modelo.Configuracion;
 
-/**
- *   TODA LA VALIDACION
- * formato numerico, rango, valor valido,
-**/
+
+// VALIDACIONES GENERALES
+
 
 public  class PanelConfiguracion {
 
@@ -18,24 +17,33 @@ public  class PanelConfiguracion {
 
     public static void solicitarCantidadRegiones(Component padre, Configuracion configuracion)
         {
+                //Muestra el texto que incluye el máximo disponible de hilos
             int maximo = Configuracion.obtenerMaximoRegiones();
             String mensaje = "Cantidad de regiones para procesar la imagen \n"
             + "Debe ser un numero par, entre 2 y " + maximo + " (nucleos disponibles).";
 
-            while (true) {
+            while (true) { //Ciclo infinito hasta que el usuario cancele o ingrese un valor valido
+
+                    //Muestra el texto con el valor actual precargado como sugerencia
                 Object entrada = JOptionPane.showInputDialog(
                     padre, mensaje, "Configurar regiones",
                     JOptionPane.QUESTION_MESSAGE, null, null,
                     configuracion.getCantidadRegiones());
 
+                        //Si el usuario cierra el cuadro o presiona “Cancelar”, se devuelve “null” para que no muestre un error
                 if (entrada == null) {
                     return;
                 }
 
+                //Se intenta convertir el texto a número, trim() quita espacios, y se lo pasa a Configuración,
+                //que aplica nuevas validaciones. Si se cumple todo, return termina el método con éxito
                 try {
                     int valor = Integer.parseInt(entrada.toString().trim());
                     configuracion.setCantidadRegiones(valor);
                     return;
+                    //Dos validaciones: NumberFormatException, si el texto no era un numero en absoluto
+                    //IllegalArgumentException, Si era un numero pero no cumplía las reglas de Configuracion. En ningún caso hay return por lo que muestra el mensaje y reinicia el while
+
                 } catch (NumberFormatException ex) {
                     mostrarError(padre, "Debe ingresar un numero entero.");
                 } catch (IllegalArgumentException ex) {

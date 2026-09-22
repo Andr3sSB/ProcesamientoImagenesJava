@@ -10,6 +10,8 @@ public  class SesionImagen {
     private File archivoOriginal;
 
     //imagen original
+    // Valida que ni imagen ni archivo sea nulo, y deja en null imagenGris e 
+    // imagenContornos para que al cargar una foto nueva no se muestre la anterior
     public void  setImagenOriginal(BufferedImage imagen, File archivo) {
         if (imagen == null || archivo == null) {
             throw new IllegalArgumentException(
@@ -21,7 +23,8 @@ public  class SesionImagen {
         this.imagenGris = null;
         this.imagenContornos = null;
     }
-
+ 
+            //lector
     public BufferedImage getImagenOriginal() {
         return imagenOriginal;
     }
@@ -30,6 +33,7 @@ public  class SesionImagen {
         return archivoOriginal;
     }
 
+        //lector
     public boolean hayImagenCargada(){
         return imagenOriginal != null;
     }
@@ -43,6 +47,7 @@ public  class SesionImagen {
         this.imagenContornos = null;
     }
 
+            //lector
     public BufferedImage getImagenGris() {
         return imagenGris;
     }
