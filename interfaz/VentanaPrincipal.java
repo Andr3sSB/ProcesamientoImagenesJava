@@ -202,7 +202,7 @@ public class VentanaPrincipal extends JFrame {
 
             SwingWorker<ResultadoOperacion, Void> tarea = new SwingWorker<>() { //Se crea objeto tipo "SwingWorker" produciendo una <BufferedImage, void>
                 @Override //Remplaza metodo existente en la clase padre
-                protected BufferedImage doInBackground() throws Exception { //ejecuta doInBackground() en hilo separado evitando congelar la ventana
+                protected ResultadoOperacion doInBackground() throws Exception { //ejecuta doInBackground() en hilo separado evitando congelar la ventana
                     long inicioNano = System.nanoTime();
 
                     BufferedImage resultado = Procesar.convertirGrisesParalelo(sesion.getImagenOriginal(), configuracion.getCantidadRegiones());
@@ -210,7 +210,7 @@ public class VentanaPrincipal extends JFrame {
 
                     long finNano = System.nanoTime();
                     long tiempoMilisegundos = (finNano - inicioNano) / 1_000_000;
-                    registrarEstadistica("grises", sesion.getImagenOriginal(), inicioNano, finNano);
+                    registrarEstadistica("grises", sesion.getImagenOriginal(), tiempoMilisegundos);
 
                     return new  ResultadoOperacion(resultado, tiempoMilisegundos);
                 }
