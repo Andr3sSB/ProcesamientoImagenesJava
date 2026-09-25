@@ -9,8 +9,8 @@ public class ConversorGrises {
         private ConversorGrises() {
 
         }
-            //recorre la imagen pixel por pixel
-        public static BufferedImage convertir(BufferedImage original) {
+            
+        public static BufferedImage convertir(BufferedImage original) { //recorre la imagen pixel por pixel
                 //Se guardan las dimensiones para no consultarlas en cada ciclo
             int ancho = original.getWidth();
             int alto = original.getHeight();

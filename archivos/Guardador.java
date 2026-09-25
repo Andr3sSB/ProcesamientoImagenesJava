@@ -17,6 +17,11 @@ public class Guardador {
 
         //Guarda la imagen:   foto1  , foto2  ,  foto3  ,  foto4
     public static File guardarConsecutivo(BufferedImage imagen, File archivoOriginal) throws IOException {
+        File carpetaDestino = archivoOriginal.getAbsoluteFile().getParentFile();
+        if (carpetaDestino != null && !carpetaDestino.canWrite()) {
+            throw new IOException("No hay permiso de escritura en la carpeta: " + carpetaDestino.getAbsolutePath());
+        }
+
         String rutaCompleta = archivoOriginal.getAbsolutePath(); //Toma la ruta completa del archivo original
 
             //Se busca la posición del ultimo separador de carpeta y la posición del ultimo punto en la ruta

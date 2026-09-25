@@ -17,8 +17,7 @@ public class Configuracion {
         return cantidadRegiones;
     }
 
-        //Cantidad de regiones (minimo 2 - maximo: nucleos del equipo)
-    public void setCantidadRegiones(int cantidad) {
+    public void setCantidadRegiones(int cantidad) { //Cantidad de regiones (minimo 2 - maximo: nucleos del equipo)
         int maximo = obtenerMaximoRegiones(); //Consulta nucleos del procesador
 
         if(cantidad < 2) { //valida que minimo sean 2
@@ -36,21 +35,16 @@ public class Configuracion {
 
         this.cantidadRegiones = cantidad; //Solo se guarda el valor si pasa las validaciones
     }
-
-        //Averigua cuantos nucleos disponibles hay en el equipo
-    public static int obtenerMaximoRegiones() {
+     
+    public static int obtenerMaximoRegiones() { //Averigua cuantos nucleos disponibles hay en el equipo
         return Runtime.getRuntime().availableProcessors();
     }
 
-
-
-    //tonalidad
-    public int getTonalidad() {
+    public int getTonalidad() { //tonalidad
         return tonalidad;
     }
-
-    //Se usan variables como TONALIDA_MAXIMA/MINIMA para verificar la condicion de mayor a 0 y menor a 255
-    public void setTonalidad(int valor) {
+    
+    public void setTonalidad(int valor) { //Se usan variables como TONALIDA_MAXIMA/MINIMA para verificar la condicion de mayor a 0 y menor a 255
         if(valor < TONALIDAD_MINIMA || valor > TONALIDAD_MAXIMA) {
             throw new IllegalArgumentException(
                 "La tonalidad debe estar entre " + TONALIDAD_MINIMA +" y " + TONALIDAD_MAXIMA);

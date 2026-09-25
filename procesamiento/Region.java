@@ -7,8 +7,8 @@ public class Region {
     private final int filaInicioLectura;
     private final int filaFinLectura;
 
-    //Guarda y devuelve 4 numeros
-    public Region(int filaInicioEscritura, int filaFinEscritura, int filaInicioLectura, int filaFinLectura) {
+    
+    public Region(int filaInicioEscritura, int filaFinEscritura, int filaInicioLectura, int filaFinLectura) { //Guarda y devuelve 4 numeros
         this.filaInicioEscritura = filaInicioEscritura;
         this.filaFinEscritura = filaFinEscritura;
         this.filaInicioLectura = filaInicioLectura;

@@ -9,10 +9,11 @@ public  class SesionImagen {
     private BufferedImage imagenContornos;
     private File archivoOriginal;
 
-    //imagen original
-    // Valida que ni imagen ni archivo sea nulo, y deja en null imagenGris e 
-    // imagenContornos para que al cargar una foto nueva no se muestre la anterior
+    
     public void  setImagenOriginal(BufferedImage imagen, File archivo) {
+        //imagen original
+        // Valida que ni imagen ni archivo sea nulo, y deja en null imagenGris e 
+        // imagenContornos para que al cargar una foto nueva no se muestre la anterior
         if (imagen == null || archivo == null) {
             throw new IllegalArgumentException(
                 "La imagen y el archivo de origen no pueden ser nulos");
@@ -23,41 +24,36 @@ public  class SesionImagen {
         this.imagenGris = null;
         this.imagenContornos = null;
     }
- 
-            //lector
-    public BufferedImage getImagenOriginal() {
+         
+    public BufferedImage getImagenOriginal() { //lector
         return imagenOriginal;
     }
 
     public File getArchivoOriginal() {
         return archivoOriginal;
     }
-
-        //lector
-    public boolean hayImagenCargada(){
+     
+    public boolean hayImagenCargada(){ //lector
         return imagenOriginal != null;
     }
 
-    //imagen esacala grises
-    public void setImagenGris(BufferedImage imagen) {
+    public void setImagenGris(BufferedImage imagen) { //imagen esacala grises
         if (imagen == null) {
             throw new IllegalArgumentException("La imagen en grises no puede ser nula");
         }
         this.imagenGris = imagen;
         this.imagenContornos = null;
     }
-
-            //lector
-    public BufferedImage getImagenGris() {
+       
+    public BufferedImage getImagenGris() { //lector
         return imagenGris;
     }
 
     public boolean hayImagenGris() {
         return imagenGris != null;
     }
-
-    //imagen contornos
-    public void setImagenContornos(BufferedImage imagen) {
+   
+    public void setImagenContornos(BufferedImage imagen) { //imagen contornos
         if (imagen == null) {
             throw new IllegalArgumentException("La imagen de contornos no puede ser nula");
         }

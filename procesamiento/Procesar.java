@@ -57,6 +57,45 @@ public class Procesar {
             return resultado; // si no hubo error devuelve la imagen ya completa
         }
 
+        public static BufferedImage detectarPatronesParalelo(BufferedImage imagenGris, int tonalidad, int cantidadRegiones) throws InterruptedException {
+            int alto = imagenGris.getHeight();
+            BufferedImage resultado = DetectorPatrones.copiarImagen(imagenGris);
+
+            List<Region> regiones = DivisorRegiones.dividirConMargen(alto, cantidadRegiones, 1);
+
+            Thread[] hilos = new Thread[regiones.size()];
+            Exception[] errores = new Exception[regiones.size()];
+
+            for (int i = 0; i < regiones.size(); i++) {
+                Region region = regiones.get(i);
+                int indice = i;
+
+                hilos[i] = new Thread(() -> {
+                    try {
+                        DetectorPatrones.procesarRango(imagenGris, resultado, tonalidad, region.getFilaInicioEscritura(), region.getFilaFinEscritura());
+                    } catch (Exception ex) {
+                        errores[indice] = ex;
+                    }
+                });
+            }
+
+            for (Thread hilo : hilos) {
+                hilo.start();
+            }
+
+            for (Thread hilo : hilos) {
+                hilo.join();
+            }
+
+            for (Exception error : errores) {
+                if (error != null) {
+                    throw new RuntimeException("Falló la busqueda de patrones en una región en paralelo. ", error);
+                }
+            }
+
+            return resultado;
+        }
+
         private static  void procesarRegion(BufferedImage original, BufferedImage destino, Region region) {
             int ancho = original.getWidth(); // se guarda el ancho una sola vez para no volver a pedirlo
 

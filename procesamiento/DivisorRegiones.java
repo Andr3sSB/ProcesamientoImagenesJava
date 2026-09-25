@@ -34,4 +34,20 @@ public class DivisorRegiones {
 
         return regiones; //Devuelve la lista
     }
+
+    public static List<Region> dividirConMargen (int totalFilas, int cantidadRegiones, int margen) {
+        List<Region> regionesSinMargen = dividirSinMargen(totalFilas, cantidadRegiones);
+        List<Region> regionesConMargen = new ArrayList<>();
+
+        for (Region region : regionesSinMargen) {
+            int inicioEscritura = region.getFilaInicioEscritura();
+            int finEscritura = region.getFilaFinEscritura();
+
+            int inicioLectura = Math.max(0, inicioEscritura - margen);
+            int finLectura = Math.min(totalFilas, finEscritura + margen);
+
+            regionesConMargen.add(new Region(inicioEscritura, finEscritura, inicioLectura, finLectura));
+        }
+        return regionesConMargen;
+    }
 }
