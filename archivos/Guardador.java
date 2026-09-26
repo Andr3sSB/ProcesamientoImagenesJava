@@ -3,6 +3,8 @@ package archivos;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
+import java.awt.Graphics2D;
 
 import javax.imageio.ImageIO;
 
@@ -45,13 +47,34 @@ public class Guardador {
 
         File archivoDestino = buscarNombreDisponible(nombreBase, extension); //Delega a un método aparte la búsqueda del primer nombre libre
 
+        BufferedImage imagenParaGuardar = prepararParaFormato(imagen, extension);
+
         //ImageIO.write no lanza excepción si simplemente no sabe escribir ese formato devuelve false
-        boolean escrito = ImageIO.write(imagen, extension, archivoDestino);
+        boolean escrito = ImageIO.write(imagenParaGuardar, extension, archivoDestino);
         if (!escrito) {
             throw new IOException("No se encontro un codec para escribir el formato '" + extension + "'.");
         }
 
         return archivoDestino; //Devuelve el archivo creado
+    }
+
+
+    private static BufferedImage prepararParaFormato(BufferedImage  imagen, String extension) {
+        if ("png".equalsIgnoreCase(extension)) { //Si la imagen es PNG no se hace esto
+            return imagen;
+        }
+
+        //Si la imagen es otro formato que no sea PNG se crea una nueva pero en TYPE_INT_RGB, no ARGB (sin canal Alfa)
+        BufferedImage imagenSinAlfa = new BufferedImage(imagen.getWidth(), imagen.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+        Graphics2D graficos = imagenSinAlfa.createGraphics();
+        try { //Recrea la imagen
+            graficos.drawImage(imagen, 0, 0, null);
+        } finally {
+            graficos.dispose();
+        }
+
+        return imagenSinAlfa; //Imagen ya convertida
     }
 
         //Prueba nombreBase_1.extension, luego _2, _3, hasta encontrar uno que no exista en el disco. Tiene limite de 1000 para que en caso de llegar no quede en bucle infinito

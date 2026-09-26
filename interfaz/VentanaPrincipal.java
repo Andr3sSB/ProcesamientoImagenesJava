@@ -146,6 +146,8 @@ public class VentanaPrincipal extends JFrame {
             return scroll;
         }
         
+
+        
         private void cargarImagen() { //Acciones del menu
                 //Crea el selector de archivos
             JFileChooser selector = new JFileChooser();
